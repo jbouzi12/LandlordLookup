@@ -105,15 +105,19 @@ function parseGoogle(place, borough) {
 
 $(document).ready(function () {
 
-    var place;
+    var landlordData = {
+      borough: '',
+    };
 
     $('#lookup-form').on('submit', function (evt) {
       evt.preventDefault();
-      var borough = $('#sel1').val();
+      landlordData.borough = $('#borough-select').val();
 
-      parseGoogle(place, borough)
-        // .then(getBBL)
-        .then(getContacts)
+      console.log(landlordData);
+      parseGoogle(landlordData.address, landlordData.borough)
+        // .then(getContacts)
+        .then(getBBL)
+        .then(getLandlord)
         .then(function(data) {
           console.log('contacts data', data);
         })
@@ -131,7 +135,7 @@ $(document).ready(function () {
     ));
     
     autocomplete.addListener('place_changed', function() {
-      place = autocomplete.getPlace();
+      landlordData.address = autocomplete.getPlace();
     });
 
 
