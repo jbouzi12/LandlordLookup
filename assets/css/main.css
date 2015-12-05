@@ -16,5 +16,19 @@ h6 {
 }
 
 .topnav {
-    font-size: 14px; 
+  font-size: 14px; 
+}
+
+.intro-header {
+  padding-top: 50px;
+  padding-bottom: 50px;
+  text-align: center;
+  color: #0000;
+  background-size: cover;
+}
+
+.intro-message {
+  position: relative;
+  padding-top: 20%;
+  padding-bottom: 20%;
 }
