@@ -7,13 +7,14 @@ function parseData(){
 
 function domUpdateLandlord(json_data){
   if(json_data.length === 0){
+  	$("#results-container").slideDown("slow");
     $('#result-container h6').text("No results found")
   }else{
     $("#result_deed_owner").text(json_data['corporationname']);
     $("#result_deed_holder_address").text(json_data["businesshousenumber"] + " " +
       json_data["businessstreetname"] + ", " +
       json_data["businesszip"] );
-
+    $("#results-container").slideDown("slow");
     // $('#result-container h6').text("Results found for address")
     // $("#result_bbl_number").text(json_data['corporationname']);
     // $("#result_address").text(json_data['corporationname']);

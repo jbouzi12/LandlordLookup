@@ -109,6 +109,7 @@ $(document).ready(function () {
       borough: '',
     };
 
+    $("#results-container").css("display", "none");
     $('#lookup-form').on('submit', function (evt) {
       evt.preventDefault();
       landlordData.borough = $('#borough-select').val();
