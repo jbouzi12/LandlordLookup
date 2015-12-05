@@ -1,6 +1,37 @@
 (function() {
   var summaryTemplate, graphTemplate, rawDataTemplate, alertTemplate;
 
+  //10.31.105.59:8080
+
+  function getLandlord(bbl){
+    var url = '10.31.105.59:8080';
+
+    return $.ajax({
+      url: url,
+      dataType: 'json'
+    }).then(function(res){
+      var landlordInfo = res;
+      console.log('landlord info', res);
+      return landlordInfo;
+    }).fail(function(err){
+      console.log('Failed to get landlord info with: ', err);
+    })
+  };
+
+  function getContacts(address, borough){
+    var url = 'hpd-elephantbird.rhcloud.com/address/';
+
+    return $.ajax({
+      url: url + borough + '/' + address;
+      dataType: 'json'
+    }).then(function(res){
+      var contacts = res;
+      return contacts;
+    }).fail(function(err){
+      console.log('Failed to get contacts with: ', err)
+    })
+  };
+
   function getBBL(data) {
     console.log(data);
     var url = 'https://who.owns.nyc/geoclient/address.json?borough='+data.borough+'&street='+data.street+'&houseNumber='+data.houseNumber;
@@ -9,7 +40,6 @@
       dataType: 'json'
     }).then(function(addressData){
       var result = addressData.address;
-      console.log('addressData', addressData);
       return result;
     })
   }
@@ -53,16 +83,6 @@ function parseGoogle(place, borough) {
     var houseNumber = place.address_components[0].short_name,
         street = place.address_components[1].short_name;
 
-    // for (var i = 0; i < place.address_components.length; i += 1) {
-    //   var county = place.address_components[i].long_name;
-    //   if (county.match(/county$/i)) {
-    //     borough = county2borough(county);
-    //   }
-    //   if (borough) {
-    //     break;
-    //   }
-    // }
-
     if (!borough) {
       return $dfd.reject("Unknown borough");
     }
@@ -94,14 +114,13 @@ $(document).ready(function () {
           console.log('tax data', data);
         })
         .fail(function(){
-          console.log('something failed');
+          console.log('Lookup failed');
         });
 
     });
 
     var autocomplete = new google.maps.places.Autocomplete($('#address_lookup')[0]);
     autocomplete.setTypes(['address']);
-    // console.log(autocomplete);
     autocomplete.setBounds(new google.maps.LatLngBounds(
       new google.maps.LatLng(40.49,-74.27),
       new google.maps.LatLng(40.87,-73.68)
