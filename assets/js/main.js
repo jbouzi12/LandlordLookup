@@ -2,25 +2,16 @@
   var summaryTemplate, graphTemplate, rawDataTemplate, alertTemplate;
 
   function getBBL(data) {
+    console.log(data);
+    var url = 'https://who.owns.nyc/geoclient/address.json?borough='+data.borough+'&street='+data.street+'&houseNumber='+data.houseNumber;
     return $.ajax({
-      url: 'https://who.owns.nyc/geoclient/address.json?' + $.param({
-        borough: data.borough, street: data.street, houseNumber: data.houseNumber
-      }),
+      url: url,
       dataType: 'json'
-    }).then(function (addressData) {
-      var data = addressData.address;
-      if (data.message || data.message2) {
-        return new $.Deferred().reject(data.message || data.message2);
-      } else {
-        data.borough = data.bblBoroughCode;
-        data.block = data.bblTaxBlock;
-        data.lot = data.bblTaxLot;
-        return data;
-      }
-    }, function () {
-      return 'Sorry, geocoding seems to not be working right now. ' +
-          'Please try later.';
-    });
+    }).then(function(addressData){
+      var result = addressData.address;
+      console.log('addressData', addressData);
+      return result;
+    })
   }
 
 function getTaxData(data) {
