@@ -9,8 +9,12 @@
 
   <!-- Bootstrap -->
   <link href="assets/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Custom CSS -->
   <link href="assets/css/main.css" rel="stylesheet">
 
+  <!-- Custom Fonts -->
+  <link href="http://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
   <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -21,7 +25,7 @@
 <body>
   <nav class="navbar navbar-default navbar-fixed-top topnav" role="navigation">
   <div class="container topnav">
-    <div class="navbar-header">
+    <div class="navbar-header navbar-right">
       <div id="google_translate_element"></div>
       <script type="text/javascript">
         function googleTranslateElementInit() {
@@ -30,35 +34,41 @@
       </script>
       <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
     </div>
-  </div>
+  </nav>
   
-  <div class="container">
-    <div class="header text-vertical-center">
-      <h1>Landlord Lookup</h1>
+  <div class="intro-header text-vertical-center">
+    <div class="container intro-message">
       <div class="row form-container">
         <div class= "col-xs-12 center-block">
-          <form id="lookup-form" class= "form-inline">
-            <div class="form-group">
-              <input type="text" class="form-control" id="address_lookup" placeholder="21 west 46 street">
-            </div>
-            <div class="form-group">
-              <select class="form-control" id="sel1">
-                <option>Select Borough</option>
-                <option>Queens</option>
-                <option>Manhattan</option>
-                <option>Bronx</option>
-                <option>Brooklyn</option>
-                <option>Staten Island</option>
-              </select>
-            </div>
-            <button type="submit" class="btn btn-primary", id="submit_address_lookup">Search</button>
-          </form>
+          <!-- <div class="intro-message"> -->
+            <h1>Landlord Lookup</h1>
+
+            <form id="lookup-form" class= "form-inline">
+              <div class="form-group">
+                <input type="text" class="form-control" id="address_lookup" placeholder="21 west 46 street">
+              </div>
+              <div class="form-group">
+                <select class="form-control" id="sel1">
+                  <option>Select Borough</option>
+                  <option>Queens</option>
+                  <option>Manhattan</option>
+                  <option>Bronx</option>
+                  <option>Brooklyn</option>
+                  <option>Staten Island</option>
+                </select>
+              </div>
+              <button type="submit" class="btn btn-primary", id="submit_address_lookup">Search</button>
+            </form>
         </div>
       </div>
       <div class="row" id="result-container">
         <h6>Results for 13 mountain view ave</h6>
       </div>
     </div>
+  </div>
+
+
+  <div class="container">
     <div class="row" id="building-info-container">
       <div class="col-xs-12">
         <h3>Building Info</h3>
