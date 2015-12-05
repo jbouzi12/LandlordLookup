@@ -112,6 +112,8 @@ $(document).ready(function () {
       borough: '',
     };
 
+    $("#results-container").css("display", "none");
+
     $('#lookup-form').on('submit', function (evt) {
       evt.preventDefault();
       landlordData.borough = $('#borough-select').val();
@@ -124,6 +126,8 @@ $(document).ready(function () {
         .then(function(data) {
           // console.log('contacts data', data);
           parseData(data);
+          $("#results-container").slideDown("slow");
+
         })
         .fail(function(){
           console.log('Lookup failed');
