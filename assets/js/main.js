@@ -1,17 +1,17 @@
 (function() {
   var summaryTemplate, graphTemplate, rawDataTemplate, alertTemplate;
 
-  //10.31.105.59:8080
-
+  //10.31.100.121:8080
   function getLandlord(bbl){
-    var url = '10.31.105.59:8080';
+    var url = 'http://10.31.100.121:8080/contacts/';
 
     return $.ajax({
-      url: url,
+      url: url + '3012720008',
+      crossDomain: true,
       dataType: 'json'
     }).then(function(res){
       var landlordInfo = res;
-      console.log('landlord info', res);
+      console.log('Bbl return info', res);
       return landlordInfo;
     }).fail(function(err){
       console.log('Failed to get landlord info with: ', err);
