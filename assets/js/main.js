@@ -40,7 +40,7 @@ function parseGoogle(place, borough) {
     console.log("in parseGoogle");
     var $dfd = new $.Deferred();
 
-    // console.log(place.address_components);
+    console.log(place.address_components);
 
     if (!place.address_components) {
       return $dfd.reject("Sorry, I can't work with that address");
@@ -86,7 +86,7 @@ $(document).ready(function () {
 
     $('#lookup-form').on('submit', function (evt) {
       evt.preventDefault();
-      var borough = $('#sel1').val();
+      var borough = $('#borough-select').val();
 
       parseGoogle(place, borough)
         .then(getBBL)
