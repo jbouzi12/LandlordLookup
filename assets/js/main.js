@@ -18,11 +18,11 @@
     })
   };
 
-  function getContacts(address, borough){
+  function getContacts(data){
     var url = 'hpd-elephantbird.rhcloud.com/address/';
 
     return $.ajax({
-      url: url + borough + '/' + address;
+      url: url + data.borough + '/' + data.address,
       dataType: 'json'
     }).then(function(res){
       var contacts = res;
@@ -91,11 +91,13 @@ function parseGoogle(place, borough) {
     console.log("house num:" + houseNumber);
     console.log("street: " + street);
     console.log("borough: " + borough);
+    console.log("borough: " + place.address_components[0]);
 
     $dfd.resolve({
       houseNumber: houseNumber,
       street: street,
-      borough: borough
+      borough: borough,
+      address: place
     });
     return $dfd.promise();
   }
@@ -109,9 +111,10 @@ $(document).ready(function () {
       var borough = $('#sel1').val();
 
       parseGoogle(place, borough)
-        .then(getBBL)
+        // .then(getBBL)
+        .then(getContacts)
         .then(function(data) {
-          console.log('tax data', data);
+          console.log('contacts data', data);
         })
         .fail(function(){
           console.log('Lookup failed');
