@@ -33,38 +33,39 @@
   };
 
   function getBBL(data) {
-    console.log(data);
+    // console.log(data);
     var url = 'https://who.owns.nyc/geoclient/address.json?borough='+data.borough+'&street='+data.street+'&houseNumber='+data.houseNumber;
     return $.ajax({
       url: url,
       dataType: 'json'
     }).then(function(addressData){
       var result = addressData.address;
-      return result;
+      console.log(result.bbl);
+      return result.bbl;
     })
   }
 
-function getTaxData(data) {
-    var borough = data.borough,
-        block = data.block,
-        lot = data.lot,
-        taxUrl = '/' + borough + '/' + block + '/' + lot + '/data.json';
-    return $.ajax({
-      url: taxUrl,
-      dataType: 'json'
-    }).then(function (table) {
-      return {
-        borough: borough,
-        block: block,
-        lot: lot,
-        table: table,
-        url: taxUrl
-      };
-    }, function () {
-      return "Sorry, I wasn't able to find tax data for that address (" +
-        'BBL ' + borough + block + lot + ').';
-    });
-  }
+// function getTaxData(data) {
+//     var borough = data.borough,
+//         block = data.block,
+//         lot = data.lot,
+//         taxUrl = '/' + borough + '/' + block + '/' + lot + '/data.json';
+//     return $.ajax({
+//       url: taxUrl,
+//       dataType: 'json'
+//     }).then(function (table) {
+//       return {
+//         borough: borough,
+//         block: block,
+//         lot: lot,
+//         table: table,
+//         url: taxUrl
+//       };
+//     }, function () {
+//       return "Sorry, I wasn't able to find tax data for that address (" +
+//         'BBL ' + borough + block + lot + ').';
+//     });
+//   }
 
 function parseGoogle(place, borough) {
     console.log("in parseGoogle");
