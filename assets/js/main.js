@@ -4,39 +4,42 @@
   //10.31.100.121:8080
   function getLandlord(bbl){
     var url = 'http://10.31.100.121:8080/contacts/';
+    // var bbl = '3012720008';
 
     return $.ajax({
-      url: url + '3012720008',
+      url: url + bbl,
       crossDomain: true,
       dataType: 'json'
     }).then(function(res){
       var landlordInfo = res;
-      console.log('Bbl return info', res);
+      // console.log('Bbl return info', res);
+      // landlordData.registratioinId = landlordInfo.registrationid;
       return landlordInfo;
     }).fail(function(err){
       console.log('Failed to get landlord info with: ', err);
     })
   };
 
-  function getContacts(data){
-    var url = 'hpd-elephantbird.rhcloud.com/address/';
+  // function getContacts(data){
+  //   var url = 'hpd-elephantbird.rhcloud.com/address/';
 
-    return $.ajax({
-      url: url + data.borough + '/' + data.address,
-      dataType: 'json'
-    }).then(function(res){
-      var contacts = res;
-      return contacts;
-    }).fail(function(err){
-      console.log('Failed to get contacts with: ', err)
-    })
-  };
+  //   return $.ajax({
+  //     url: url + data.borough + '/' + data.address,
+  //     dataType: 'json'
+  //   }).then(function(res){
+  //     var contacts = res;
+  //     return contacts;
+  //   }).fail(function(err){
+  //     console.log('Failed to get contacts with: ', err)
+  //   })
+  // };
 
   function getBBL(data) {
     // console.log(data);
     var url = 'https://who.owns.nyc/geoclient/address.json?borough='+data.borough+'&street='+data.street+'&houseNumber='+data.houseNumber;
     return $.ajax({
       url: url,
+      crossDomain: true,
       dataType: 'json'
     }).then(function(addressData){
       var result = addressData.address;
@@ -109,6 +112,8 @@ $(document).ready(function () {
       borough: '',
     };
 
+    $("#results-container").css("display", "none");
+
     $('#lookup-form').on('submit', function (evt) {
       evt.preventDefault();
       landlordData.borough = $('#borough-select').val();
@@ -119,7 +124,10 @@ $(document).ready(function () {
         .then(getBBL)
         .then(getLandlord)
         .then(function(data) {
-          console.log('contacts data', data);
+          // console.log('contacts data', data);
+          parseData(data);
+          $("#results-container").slideDown("slow");
+
         })
         .fail(function(){
           console.log('Lookup failed');
