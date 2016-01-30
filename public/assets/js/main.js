@@ -11,7 +11,6 @@
       dataType: 'json'
     }).then(function(res){
       var landlordInfo = res;
-      // console.log('Bbl return info', res);
       // landlordData.registrationId = landlordInfo.registrationid;
       return landlordInfo;
     }).fail(function(err){
@@ -34,7 +33,6 @@
   // };
 
   function getBBL(data) {
-    // console.log(data);
     var url = 'https://who.owns.nyc/geoclient/address.json?borough='+data.borough+'&street='+data.street+'&houseNumber='+data.houseNumber;
     return $.ajax({
       url: url,
@@ -72,8 +70,6 @@
 function parseGoogle(place, borough) {
     console.log("in parseGoogle");
     var $dfd = new $.Deferred();
-
-    // console.log(place.address_components);
 
     if (!place.address_components) {
       return $dfd.reject("Sorry, I can't work with that address");
@@ -123,7 +119,6 @@ $(document).ready(function () {
         .then(getBBL)
         .then(getLandlord)
         .then(function(data) {
-          // console.log('contacts data', data);
           parseData(data);
           $("#results-container").slideDown("slow");
 
