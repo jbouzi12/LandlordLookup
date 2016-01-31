@@ -1,9 +1,8 @@
 (function() {
   var summaryTemplate, graphTemplate, rawDataTemplate, alertTemplate;
 
-  //10.31.100.121:8080
   function getLandlord(bbl){
-    var url = 'http://10.31.100.121:8080/contacts/';
+    var url = 'hpd-elephantbird.rhcloud.com/contacts/';
     // var bbl = '3012720008';
 
     return $.ajax({
@@ -12,8 +11,7 @@
       dataType: 'json'
     }).then(function(res){
       var landlordInfo = res;
-      // console.log('Bbl return info', res);
-      // landlordData.registratioinId = landlordInfo.registrationid;
+      // landlordData.registrationId = landlordInfo.registrationid;
       return landlordInfo;
     }).fail(function(err){
       console.log('Failed to get landlord info with: ', err);
@@ -35,7 +33,6 @@
   // };
 
   function getBBL(data) {
-    // console.log(data);
     var url = 'https://who.owns.nyc/geoclient/address.json?borough='+data.borough+'&street='+data.street+'&houseNumber='+data.houseNumber;
     return $.ajax({
       url: url,
@@ -74,16 +71,14 @@ function parseGoogle(place, borough) {
     console.log("in parseGoogle");
     var $dfd = new $.Deferred();
 
-    // console.log(place.address_components);
-
     if (!place.address_components) {
       return $dfd.reject("Sorry, I can't work with that address");
     }
-    
+
     // if (!place.address_components[0].types.contains('street_number')) {
     //   return $dfd.reject("Double-check this address, I can't find it");
     // }
-    
+
     var houseNumber = place.address_components[0].short_name,
         street = place.address_components[1].short_name;
 
@@ -124,7 +119,6 @@ $(document).ready(function () {
         .then(getBBL)
         .then(getLandlord)
         .then(function(data) {
-          // console.log('contacts data', data);
           parseData(data);
           $("#results-container").slideDown("slow");
 
@@ -141,7 +135,7 @@ $(document).ready(function () {
       new google.maps.LatLng(40.49,-74.27),
       new google.maps.LatLng(40.87,-73.68)
     ));
-    
+
     autocomplete.addListener('place_changed', function() {
       landlordData.address = autocomplete.getPlace();
     });
